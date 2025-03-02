@@ -13,9 +13,29 @@ export class ResidencesComponent {
      {id:3,"name": "El Arij", "address":"Rades","image":"../assets/R3.jpg", status: "Vendu"},
      {id:4,"name": "El Anber","address":"inconnu", "image":"../assets/R4.jpg", status: "En Construction"}
    ];
-   showA=false;
- show(R:Residence){
-  if (R.address=="inconnu"){alert("Adresse Inconnue!!")}
-  else {this.showA=true;}
- }
+   searchAddress= '';
+   filteredResidences: Residence[] = [];
+   filterResidences() {
+    const search = this.searchAddress.trim().toLowerCase();
+    this.filteredResidences = this.listResidences.filter(residence =>
+      residence.address.toLowerCase().includes(search) || residence.name.toLowerCase().includes(search)
+    );
+  }
+
+   show(R: Residence) {
+    R.showAddress = !R.showAddress; // Chaque résidence aura sa propre propriété
+    if (R.address === "inconnu") {
+      alert("L'adresse de cette résidence est inconnue");
+    }
+    
+  }
+  favorites: Residence[] = [];
+
+likeResidence(R: Residence) {
+  this.favorites.push(R);
+  alert(`${R.name} ajouté aux favoris!`);
+}
+
+  
+  
 }

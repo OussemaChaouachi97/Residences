@@ -1,12 +1,22 @@
-<h1 style="text-align: center; padding: 2%">List Residences</h1>
-<div *ngFor="let R of listResidences">
-  <div class="card" style="width: 18rem">
-    <img class="card-img-top" [src]="R.image" alt="Card image cap" />
-    <div class="card-body">
-      <h5 class="card-title">{{ R.name }}</h5>
-      <h5 *ngIf="showA" class="card-title">{{ R.address }}</h5>
-      
-      <a  class="btn btn-primary" (click)="show(R)">Show location</a>
-    </div>
+
+<input type="text" placeholder="Recherche par adresse" [(ngModel)]="searchAddress" >
+<div *ngFor="let R of listResidences ">
+  <div *ngIf="R.name.toLowerCase().includes(searchAddress.toLowerCase()) || !searchAddress">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" [src]="R.image" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{R.name}}</h5>
+    <h5 *ngIf="R.showAddress" class="card-title">{{R.address}}</h5>
+    <button type="button" class="btn btn-info" (click)="likeResidence(R)">Like</button>
+    <h5 *ngIf="R.status === 'Disponible'">✅ Disponible</h5>
+    <h5 *ngIf="R.status === 'Vendu'">❌ Vendu</h5>
+    <h5 *ngIf="R.status === 'En Construction'">🚧 En Construction</h5>
+
+    <a class="btn btn-primary" (click)="show(R)">Show Location</a>
   </div>
+</div></div>
 </div>
+<!-- <h3>Liste des Favoris</h3>
+<ul>
+  <li *ngFor="let fav of favorites">{{ fav.name }}</li>
+</ul> -->
